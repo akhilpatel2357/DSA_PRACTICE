@@ -90,14 +90,37 @@ public class BasicRecursion {
 		}
 	}
 	
-	public static void main(String[] args) {
-		int[] org = new int[] {1,2,3,4,5, 6,7, 8,9,10};
-		int[] rev = new int[org.length];
-	//	reverseArr(org, rev, 0, org.length-1);
+	
+	public static boolean checkStringPalindrome(String s) {
+		return s.equals(new StringBuffer(s).reverse().toString());
 		
-		reverseArray(org, 0, org.length -1);
-		for(int i: org) {
-			System.out.print(i + " ");
+	}
+	
+	//TC:O(n), SC: O(1)
+	public static boolean checkSPalindrome(String s) {
+		int i = 0;
+		int j = s.length()-1;
+		while(i < j) {
+			if(s.charAt(i) == s.charAt(j)) {
+				i++;
+				j--;
+			} else {
+				return false;
+			}
 		}
+		return true;
+	}
+	public static void main(String[] args) {
+		String a = "eye ,eye";
+		System.out.println(checkSPalindrome(a));
+		
+//		int[] org = new int[] {1,2,3,4,5, 6,7, 8,9,10};
+//		int[] rev = new int[org.length];
+//	//	reverseArr(org, rev, 0, org.length-1);
+//		
+//		reverseArray(org, 0, org.length -1);
+//		for(int i: org) {
+//			System.out.print(i + " ");
+//		}
 	}
 }
