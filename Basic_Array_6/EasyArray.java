@@ -1,6 +1,13 @@
 package Basic_Array_6;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class EasyArray {
 
@@ -70,11 +77,11 @@ public class EasyArray {
 	   return check;
 	   
    }
-   
+   //TC: O(n), SC: O(1)
    public static boolean checkArraySortRotated(int[] arr) {
 	    int check = 0;
-	   for(int i =0; i < arr.length-1; i++) {
-		   if(arr[i] > arr[i+1]) {
+	   for(int i =0; i < arr.length; i++) {
+		   if(arr[i] > arr[(i+1) % arr.length]) {
 			   check = check+1;
 		   }
 	   }
@@ -82,7 +89,70 @@ public class EasyArray {
 	   return check <= 1;
 	   
   }
+   //TC:O(n), SC:O(n)
+
+   public int removeDuplicates(int[] nums) {
+	   Set<Integer> sert = new LinkedHashSet();
+
+for(int i: nums) {
+   sert.add(i);
+}
+	 Iterator<Integer> m = sert.iterator();
+	 int i = 0;
+	 while(m.hasNext()) {
+		 nums[i] = m.next();
+   i++;
+	 }
+
+
+    return sert.size();
+}
+   
+   //TC:O(n), SC:O(n)
+   public static int removeDupElements(int[] arr) {
+	   Set<Integer>  sert = new HashSet<Integer>();
+	   int j= 0;
+			   for(int i : arr) {
+				   if(!sert.contains(i)) {
+					   sert.add(i);
+					   
+					   arr[j] = i;
+					   j++;
+				   }
+				   
+			   }
+			 return  sert.size();
+	   
+   }
+   //TC:O(n), SC:O(1)
+   public static int removeDupEleUsingPointers(int[] arr) {
+	   int i = 0;
+	   for(int j = 1; j<arr.length; j++) {
+		   if(arr[j] != arr[i]) {
+			   i++;
+			   arr[i] = arr[j];
+		   }
+	   }
+	return i+1;
+	   
+   }
+   
+   //TC:O(n), SC:O(n)
+   public static void rightRotate(int[] arr, int k) {
+	   int[] abc = new int[arr.length];
+	   for(int i = 0; i < arr.length;i++) {
+		   abc[(i+k)%arr.length] = arr[i];
+	   }
+	   for(int i : arr)
+	   System.out.print(i+" ");
+	   
+	   
+	   System.out.println();
+	   for(int i : abc)
+		   System.out.print(i+" ");
+	   
+   }
 	public static void main(String[] args) {
-	System.out.println(checkArraySortRotated(new int[] {0,1,2,31,2,3,4,5,6}));	
+		rightRotate(new int[] {1,2,3,4,5,6,7},3);
 	}
 }
