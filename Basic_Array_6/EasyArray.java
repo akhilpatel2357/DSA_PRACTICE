@@ -137,22 +137,129 @@ for(int i: nums) {
 	   
    }
    
-   //TC:O(n), SC:O(n)
-   public static void rightRotate(int[] arr, int k) {
-	   int[] abc = new int[arr.length];
+ //TC:O(n), SC:O(1)
+   public static void printArr(int[] arr) {
 	   for(int i = 0; i < arr.length;i++) {
-		   abc[(i+k)%arr.length] = arr[i];
+		   System.out.print(arr[i]+" ");
 	   }
-	   for(int i : arr)
-	   System.out.print(i+" ");
-	   
-	   
 	   System.out.println();
-	   for(int i : abc)
-		   System.out.print(i+" ");
+   }
+   
+   //TC: O(n), SC: O(1)
+   public static void leftRotateByOnePlace(int[] arr) {
+	   printArr(arr);
+	   int temp = arr[0];
+	   for(int i = 1; i< arr.length;i++) {
+		   arr[i-1] = arr[i];
+		   }
+	   arr[arr.length -1] = temp;
+	   printArr(arr);
+	   }
+   
+   //TC: O(k*n), SC:O(1)
+   public static void leftRotateByKPlaces(int[] arr, int k) {
+	    k = k%arr.length;
+	   while(k >0) {
+		   leftRotateByOnePlace(arr);
+		   k--;
+	   }
+   }
+   
+   //TC: O(2n)~O(n), SC:O(1)
+   public static void leftRotateByKPlacesRev(int[] arr, int k) {
+	   printArr(arr);
+
+	   reverseArray(arr, 0, k-1);             //TC:O(k)
+	   reverseArray(arr, k, arr.length-1);    //TC:O(n-k)
+	   reverseArray(arr, 0, arr.length-1);    //TC:O(n)
+	   
+	   printArr(arr);
+
 	   
    }
+   
+   
+   //TC: O(n/2)~O(n), Sc: O(1)
+   public static void reverseArray(int[] arr, int low, int high) {
+	   while(low <= high) {
+		   int temp = arr[low];
+		   arr[low] = arr[high];
+		   arr[high]= temp;
+		   low++;
+		   high--;
+		   }
+	   
+   }
+
+   
+   //TC:O(n), SC:O(1)
+   public static void rightRotateByOnePlace(int[] arr) {
+	   printArr(arr);
+	   int temp = arr[arr.length - 1]; // Save last element
+	    for (int i = arr.length - 1; i > 0; i--) {
+	        arr[i] = arr[i - 1]; // Shift elements to the right
+	    }
+	    arr[0] = temp; // Place last element at the start
+	   printArr(arr);
+
+   }
+   
+   //TC:O(k*n), SC:O(1)
+   public static void rightRotateByKPlaces(int[] arr, int k) {
+	   k = k%arr.length;
+	   while(k > 0) {
+		   rightRotateByOnePlace(arr);
+		   k--;
+	   }
+   }
+   
+   //TC:O(2n) ~ O(n), SC:O(1)
+   public static void rightRotateByKPlacesRev(int[] arr, int k) {
+	   printArr(arr);
+	   k = k%arr.length;
+	   reverseArray(arr, 0, arr.length-1); //O(n)
+	   reverseArray(arr, 0, k-1);          //O(k) 
+	   reverseArray(arr, k, arr.length-1);  //O(n-k)
+	   printArr(arr);
+   }
+   
+   //For Left and right shift by k places in array. 
+   //The order of reversing the entire array is slightly different.
+   //Observe that.
+   
+   //TC:O(n), SC:O(n)
+   public static int[] moveZerosToEnd(int[] arr) {
+	   printArr(arr);
+	   int[] res = new int[arr.length];
+	   int j = 0;
+	  for(int i = 0; i < arr.length; i++) {
+		  if(arr[i] != 0) {
+			  res[j] = arr[i];
+			  j++;
+		  }
+		  
+	  }
+	  return res;
+   }
+   
+   public static void moveZeroes(int[] nums) {
+       
+	   for(int i =0; i < nums.length-1; i++){
+	         if(nums[i] == 0) {
+	             int j = i+1;
+	             while(j < nums.length && nums[j] == 0) {
+	                j++;
+	             }
+	             int temp = nums[j];
+	             nums[j] = nums[i];
+	             nums[i] = temp; 
+	         }
+	   }
+   
+   }
 	public static void main(String[] args) {
-		rightRotate(new int[] {1,2,3,4,5,6,7},3);
+		int[] arr = new int[] {0,0,1,1};
+		 moveZeroes(arr);
+		 printArr(arr);
 	}
 }
