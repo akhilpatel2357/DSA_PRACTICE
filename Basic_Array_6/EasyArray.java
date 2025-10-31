@@ -242,24 +242,30 @@ for(int i: nums) {
 	  return res;
    }
    
+   //TC: O(n), SC:O(1)
    public static void moveZeroes(int[] nums) {
        
-	   for(int i =0; i < nums.length-1; i++){
-	         if(nums[i] == 0) {
-	             int j = i+1;
-	             while(j < nums.length && nums[j] == 0) {
-	                j++;
-	             }
-	             int temp = nums[j];
-	             nums[j] = nums[i];
-	             nums[i] = temp; 
-	         }
-	   }
-   
+	  int i = 0, j =0;
+	  while(j < nums.length) {
+		  if(nums[j] != 0) {
+			  int temp = nums[j];
+			  nums[j] = nums[i];
+			  nums[i] = temp;
+			  i++;
+			  j++;
+		  } else {
+			  j++;
+		  }
+	  }
+	 
+ 
    }
+   
+   
+   
 	public static void main(String[] args) {
-		int[] arr = new int[] {0,0,1,1};
-		 moveZeroes(arr);
+		int[] arr = new int[] {0,0,1,0};
+		moveZeroes(arr);
 		 printArr(arr);
 	}
 }
