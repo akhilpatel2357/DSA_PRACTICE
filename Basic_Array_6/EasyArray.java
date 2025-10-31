@@ -1,11 +1,13 @@
 package Basic_Array_6;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -257,15 +259,62 @@ for(int i: nums) {
 			  j++;
 		  }
 	  }
-	 
- 
+   }
+   
+   //TC:O(n), SC:O(1)
+   public static int findElementIndex(int[] arr, int num) {
+	   for(int i = 0; i < arr.length; i++) {
+		   if(arr[i] == num) {
+			   return i;
+		   }
+	   }
+	   
+	   return -1;
+   }
+   
+   //TC: (m+n), SC: O(m+n)
+   public static Set<Integer> unionOfArrays(int[] arr, int[] sec) {
+	   printArr(arr);
+	   printArr(sec);
+        Set<Integer> list = new LinkedHashSet<Integer>();	   
+	   int arrHigh= arr.length -1;
+	   
+	   int secHigh = sec.length -1;
+	   
+	   int left = 0, right = 0;
+	   while(left <= arrHigh && right <= secHigh) {
+		   
+		   if(arr[left] <= sec[right]) {
+			   list.add(arr[left]);
+			   left++;
+		   } else  {
+			   list.add(sec[right]);
+    		   right++;
+		   } 
+		   
+	   }
+	   
+	   while(left <= arrHigh) {
+			 list.add(arr[left]);
+		 left++;
+	   }
+	   
+	   while(right <= secHigh) {
+		   list.add(sec[right]);
+		   right++;
+
+	   }
+	   
+	   return list;
    }
    
    
+
    
 	public static void main(String[] args) {
-		int[] arr = new int[] {0,0,1,0};
-		moveZeroes(arr);
-		 printArr(arr);
+		int[] arr1 = {1, 3, 4, 5, 6, 7, 8, 9, 10, 99};
+		 int arr2[] = {2, 3, 4, 4, 5, 11, 12, 98};
+
+		
 	}
 }
