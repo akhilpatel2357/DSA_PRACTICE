@@ -274,6 +274,9 @@ for(int i: nums) {
    
    //TC: (m+n), SC: O(m+n)
    public static Set<Integer> unionOfArrays(int[] arr, int[] sec) {
+	   
+	   
+	   
 	   printArr(arr);
 	   printArr(sec);
         Set<Integer> list = new LinkedHashSet<Integer>();	   
@@ -308,13 +311,76 @@ for(int i: nums) {
 	   return list;
    }
    
-   
+   //TC:O(n*n), SC:O(1)
+   public static int findMissingNum(int[] arr) {
 
+      for(int k =0; k<= arr.length; k++) {
+    	  boolean notPresent = true;
+    	  for(int i = 0; i < arr.length; i++) {
+    		  if(k == arr[i]) {
+    			  notPresent = false;
+    			  break;
+    		  }
+    	  }
+    	  if(notPresent) {
+    		  return k;
+    	  }
+    	  
+    	  
+      }
+      return -1;
+}
    
+   
+   
+   
+   //TC:O(n), SC:O(1)
+   public static int findMissingNumUsingFormula(int[] arr) {
+	   int n = arr.length;
+	   int actualSum = n*(n+2)/2;
+	   int sum = 0;
+	   for(int i : arr) {
+		   sum+=i;
+	   }
+	   return actualSum- sum;
+	   
+   }
+//TC:O(n), SC: O(1)
+   public static int maxConsecutiveOnes(int[] arr) {
+	   int count = 0;
+	   int maxCount = 0;
+	   for(int i = 0; i < arr.length; i++) {
+		   if(arr[i] ==1) {
+			   count++;
+			   maxCount = Math.max(maxCount, count);
+		   } else {
+			   count = 0;
+		   }
+	   }
+	   return maxCount;
+   }
+   
+   //TC: O(n), SC: O(n)
+   public static int NumAppearsOnce(int[] arr) {
+	   
+	   Map<Integer, Integer> map = new HashMap();
+	   for(int i : arr) {
+		   map.put(i, map.getOrDefault(i, 0) +1);
+	   }
+	   
+	   for(Map.Entry<Integer, Integer> entry: map.entrySet()) {
+		   if(entry.getValue() == 1) {
+			   return entry.getKey();
+		   }
+	   }
+	   return -1;
+   }
+  
 	public static void main(String[] args) {
-		int[] arr1 = {1, 3, 4, 5, 6, 7, 8, 9, 10, 99};
+		int[] arr1 = {1, 1, 1, 2,2,2,3,3,4, 4,5,5};
 		 int arr2[] = {2, 3, 4, 4, 5, 11, 12, 98};
 
-		
+		 
+		 printArr(arr1);
 	}
 }
