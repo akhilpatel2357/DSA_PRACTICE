@@ -360,7 +360,7 @@ for(int i: nums) {
 	   return maxCount;
    }
    
-   //TC: O(n), SC: O(n)
+   //TC: O(nlogm)+O(m), SC: O(n) m = size of map, m= n/2 +1 where n = size of array
    public static int NumAppearsOnce(int[] arr) {
 	   
 	   Map<Integer, Integer> map = new HashMap();
@@ -375,12 +375,68 @@ for(int i: nums) {
 	   }
 	   return -1;
    }
+   
+   
+   
+   
+   //TC: O(n*n), SC; O(1)
+   public static int NumAppearsOnceBrute(int[] arr) {
+	   
+	   for(int i = 0; i < arr.length; i++) {
+		   int ele = arr[i];
+		   int count = 0;
+		   for(int j = 0; j < arr.length; j++) {
+			   if(ele == arr[j]) {
+				   count++;
+			   }
+		   }
+		   if(count == 1)
+			   return ele;
+	   }
+	   
+	  return -1;
+   }
   
-	public static void main(String[] args) {
+   //TC: O(n) +O(n)+O(m) ~O(n), Sc: O(n+1)
+   public static int NumAppearsOnceArrayHashing(int[] arr) {
+	   int max=0;
+	   for(int i : arr) {
+		   max = Math.max(max, i);
+	   }
+	   
+	   int[] res = new int[max+1];
+	   
+	   
+	   for(int i: arr) {
+		   res[i]++;
+	   }
+	   
+	   for(int i = 0; i < res.length; i++) {
+		   if(res[i] == 1) {
+			   return i;
+		   }
+	   }
+	   
+	   return -1;
+	   
+   }
+   
+   //TC:O(n), SC:O(1)
+   public static int numAppearingOnceUsingXor(int[] arr) {
+	   
+	   int xor = 0;
+	   for(int i : arr) {
+		   xor = xor^i;
+	   }
+	   return xor;
+   }
+   
+   
+  	public static void main(String[] args) {
 		int[] arr1 = {1, 1, 1, 2,2,2,3,3,4, 4,5,5};
 		 int arr2[] = {2, 3, 4, 4, 5, 11, 12, 98};
-
+          System.out.println(numAppearingOnceUsingXor(new int[] {1,1,2,2,5,6,3,4,3,4, 5,6,9}));
 		 
-		 printArr(arr1);
+		// printArr(arr1);
 	}
 }
