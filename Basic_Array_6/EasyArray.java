@@ -464,10 +464,11 @@ for(int i: nums) {
 	   return maxLength;
    }
    
+   //Its for both positives and negatives 
 	   //TC: O(n), SC: O(n)
 	   public static int longestSubArrayLengthUsingHasing(int[] arr, int k) {
-		   int sum = 0, maxLength = 0;
-		   Map<Integer, Integer> map = new HashMap();
+		   long sum = 0;int maxLength = 0;
+		   Map<Long, Integer> map = new HashMap();
 		   for(int i = 0; i < arr.length; i++) {
 			         sum += arr[i];
 			   
@@ -475,12 +476,12 @@ for(int i: nums) {
 				   maxLength = Math.max(maxLength, i+1);
 			   }
 			   
-			   int rem = sum - k;
+			   long rem = sum - k;
 			   
 			   //reverse Engineering
 		        // If (sum - k) seen before, we found a subarray with sum k
 			   if(map.containsKey(rem)) {
-				   maxLength = Math.max(maxLength, i - map.get(rem) +1);
+				   maxLength = Math.max(maxLength, i - map.get(rem)+1);
 			   }
 			   
 		        // Store the first occurrence of this sum
@@ -496,6 +497,7 @@ for(int i: nums) {
 	   }
 	   
    //TC: O(n), SC: O(1)
+	   // Its only for positives
    public static int longestSubArrUsingSlidingWindow(int[] arr, int k) {
 	   int sum = 0, maxLen = 0; int j = 0; int i = 0;
 	  
@@ -521,9 +523,9 @@ for(int i: nums) {
    }
    
   	public static void main(String[] args) {
-  		int[] arr1= {2,3,5,1,9};
+  		int[] arr1= {0,3,0,0,0,0,3};
   		int[] arr2 = {2,3,5};
-          System.out.println(longestSubArrUsingSlidingWindow(arr2, 5));
+          System.out.println(longestSubArrayLengthUsingHasing(arr1, 3));
 		 
 		// printArr(arr1);
 	}
