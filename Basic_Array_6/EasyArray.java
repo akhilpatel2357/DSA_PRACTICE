@@ -431,11 +431,99 @@ for(int i: nums) {
 	   return xor;
    }
    
+   //TC: O(n*n*n), SC: O(1)
+   public static int longestSubArrayLengthBr1(int[] arr, int k) {
+	   int maxLength = 0; 
+	   for(int i = 0; i < arr.length; i++) {
+		   for(int j = 0; j< arr.length; j++) {
+			   int sum = 0;
+			   for(int m = i; m <= j; m++) {
+				   sum+=arr[m];
+			   }
+			   if(sum == k) {
+				   maxLength = Math.max(maxLength, j-i+1);
+			   }
+		   }
+	   }
+	   return maxLength;
+   }
+   
+   //TC: O(n*n), SC: O(1)
+   public static int longestSubArrayLengthBr2(int[] arr, int k) {
+	   int maxLength = 0; 
+	   for(int i = 0; i < arr.length; i++) {
+		   int sum = 0;
+		   for(int j = 0; j< arr.length; j++) {
+				   sum+=arr[j];
+			   
+			   if(sum == k) {
+				   maxLength = Math.max(maxLength, j-i+1);
+			   }
+		   }
+	   }
+	   return maxLength;
+   }
+   
+	   //TC: O(n), SC: O(n)
+	   public static int longestSubArrayLengthUsingHasing(int[] arr, int k) {
+		   int sum = 0, maxLength = 0;
+		   Map<Integer, Integer> map = new HashMap();
+		   for(int i = 0; i < arr.length; i++) {
+			         sum += arr[i];
+			   
+			   if(sum == k) {
+				   maxLength = Math.max(maxLength, i+1);
+			   }
+			   
+			   int rem = sum - k;
+			   
+			   //reverse Engineering
+		        // If (sum - k) seen before, we found a subarray with sum k
+			   if(map.containsKey(rem)) {
+				   maxLength = Math.max(maxLength, i - map.get(rem) +1);
+			   }
+			   
+		        // Store the first occurrence of this sum
+
+			   if(!map.containsKey(sum)) {
+				   map.put(sum, i);
+			   }
+			   
+			   
+		   }
+		   
+		   return maxLength;
+	   }
+	   
+   //TC: O(n), SC: O(1)
+   public static int longestSubArrUsingSlidingWindow(int[] arr, int k) {
+	   int sum = 0, maxLen = 0; int j = 0; int i = 0;
+	  
+		  while(j < arr.length)     {
+			  sum += arr[j];
+			   
+			   while(sum> k && i<=j){
+			    	 sum-= arr[i];
+			    	 i++;
+			     }
+
+			   if(sum == k) {
+			    	 maxLen = Math.max(maxLen, j-i+1);
+			    	 j++;
+			     } 
+			   if(sum < k) {
+				   j++;
+			     } 
+			
+					  }
+	   return maxLen;
+	   
+   }
    
   	public static void main(String[] args) {
-		int[] arr1 = {1, 1, 1, 2,2,2,3,3,4, 4,5,5};
-		 int arr2[] = {2, 3, 4, 4, 5, 11, 12, 98};
-          System.out.println(numAppearingOnceUsingXor(new int[] {1,1,2,2,5,6,3,4,3,4, 5,6,9}));
+  		int[] arr1= {2,3,5,1,9};
+  		int[] arr2 = {2,3,5};
+          System.out.println(longestSubArrUsingSlidingWindow(arr2, 5));
 		 
 		// printArr(arr1);
 	}
