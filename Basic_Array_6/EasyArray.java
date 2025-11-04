@@ -435,7 +435,7 @@ for(int i: nums) {
    public static int longestSubArrayLengthBr1(int[] arr, int k) {
 	   int maxLength = 0; 
 	   for(int i = 0; i < arr.length; i++) {
-		   for(int j = 0; j< arr.length; j++) {
+		   for(int j = i; j< arr.length; j++) {
 			   int sum = 0;
 			   for(int m = i; m <= j; m++) {
 				   sum+=arr[m];
@@ -453,7 +453,7 @@ for(int i: nums) {
 	   int maxLength = 0; 
 	   for(int i = 0; i < arr.length; i++) {
 		   int sum = 0;
-		   for(int j = 0; j< arr.length; j++) {
+		   for(int j = i; j< arr.length; j++) {
 				   sum+=arr[j];
 			   
 			   if(sum == k) {
