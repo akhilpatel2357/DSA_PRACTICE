@@ -522,10 +522,39 @@ for(int i: nums) {
 	   
    }
    
+   
+   //Counting number of subarrays
+   //TC:O(n), SC:O(n)
+   public static int subarraySumUsingSlidingWindow(int[] nums, int k) {
+	    long sum = 0;
+	    int count = 0;
+
+	    Map<Long, Integer> map = new HashMap<Long, Integer>();
+	    for(int i  = 0; i < nums.length; i++) {
+	        sum += nums[i];
+
+
+	        if(sum == k) {
+	            count++;
+	        }
+
+
+	     long rem = sum - k;
+
+	     if(map.containsKey(rem)) {
+	        count+= map.get(rem);
+	     }
+
+	        map.put(sum, map.getOrDefault(sum, 0)+1);
+
+	    }
+	return count;
+	    }
+   
   	public static void main(String[] args) {
-  		int[] arr1= {0,3,0,0,0,0,3};
+  		int[] arr1= {1};
   		int[] arr2 = {2,3,5};
-          System.out.println(longestSubArrayLengthUsingHasing(arr1, 3));
+          System.out.println(subarraySumUsingSlidingWindow(arr1, 0));
 		 
 		// printArr(arr1);
 	}
