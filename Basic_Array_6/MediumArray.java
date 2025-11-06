@@ -100,8 +100,44 @@ public class MediumArray {
 		   return new int[] {-1,-1};
 		   //return "no";
 	   }
+	   
+	   
+	   //TC:O(2n), SC:O(1)
+	   public static void sortOnesTwosProb(int[] arr) {
+		   
+		   int oneCount = 0;
+		   int twoCOunt = 0;
+		   int zeroCount = 0;
+		   
+		   for(int i :arr) {
+			   if(i == 0) {zeroCount++;
+				   
+			   } else if(i == 1) {
+				   oneCount++;
+			   }  else {
+				   twoCOunt++;
+			   }
+		   }
+		   
+		   
+		   for(int i = 0; i< zeroCount ;i++) {
+			   arr[i] = 0;
+		   }
+		   
+		   for(int j = zeroCount; j<zeroCount+oneCount; j++) {
+			   arr[j] = 1;
+		   }
+		   
+		   for(int z =zeroCount+oneCount; z< arr.length; z++) {
+			   arr[z] = 2;
+		   }
+	   }
 public static void main(String[] args) {
-	
+	int[] arr = {0,1,2,1,0,2,0,1,2,0,1,2};
+	sortOnesTwosProb(arr);
+	for(int i : arr) {
+		System.out.print(i+" ");
+	}
 	
 }
 }
