@@ -1,6 +1,8 @@
 package Basic_Array_6;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MediumArray {
@@ -132,12 +134,128 @@ public class MediumArray {
 			   arr[z] = 2;
 		   }
 	   }
+	   
+	   
+	   
+	   
+	   //sort an array of 0s,1s and 2s
+	   //Merge Sort Implementation
+	   
+	   //TC: O(nlogn), SC: O(n)
+	   public static void zeroOneSort(int[] arr, int low, int high) {
+		  if(low <high) {
+			  int mid = (low+high)/2;
+			   zeroOneSort(arr, 0, mid);
+			   zeroOneSort(arr, mid+1, high);
+			   sorting(arr, low, mid, high);
+		  }
+	   }
+	   
+	   public static void sorting(int[] arr, int low, int mid, int high) {
+		   int left = low;
+		   int right = mid+1;
+		   
+		   List<Integer> list = new ArrayList<Integer>();
+		   
+		   while(left <= mid && right <= high) {
+			   
+			   if(arr[left] <= arr[right]) {
+				   list.add(arr[left]);
+				   left++;
+			   } else {
+				   list.add(arr[right]);
+				   right++;
+			   }  
+		   }
+		   
+		   while(left <= mid) {
+			   list.add(arr[left]);
+			   left++;
+		   }
+		   
+		   while(right <= high) {
+			   list.add(arr[right]);
+			   right++;
+		   }
+		   
+		   
+		   for(int i = low; i <= high; i++) {
+			   arr[i] = list.get(i-low);
+		   }
+	   }
+	   
+	   //TC: O(2n), SC:O(1)
+	   public static void zeroOneCounterMethods(int[] arr) {
+		   int zeroCounter = 0;
+		   int oneCounter = 0;
+	//	   int twoCounter = 0;
+		   
+		   for(int i : arr) {
+			   if(i == 0) {
+				   zeroCounter++;
+			   } else if(i == 1) {
+				   oneCounter++;
+			   }
+//			   } else {
+//				   twoCounter++;
+//			   }
+		   }
+		   
+		   
+		   for(int i = 0; i < zeroCounter; i++) {
+			   arr[i] = 0;
+		   }
+		   
+		   for(int i = zeroCounter; i < zeroCounter +oneCounter ; i++) {
+			   arr[i] = 1;
+		   }
+		   
+		   for(int i = zeroCounter +oneCounter; i < arr.length ; i++) {
+			   arr[i] = 2;
+		   }
+		   
+	   }	   
+	   
+	   
+	   //TC: O(n), Sc: O(1)
+	   //DNF =  Dutch national flag
+	   // 0 - low-1 -> 0,0,.....
+	   // low - mid-1 -> 1,1,1....
+	   // mid - high -> 0,1,2,2,1,0... random
+	   // high+1 - n-1 -> 2,2,2......
+	   public static void zeroOneSortOptimal(int[] arr) {
+		   
+		   int low = 0;
+		   int mid = 0;
+		   int high = arr.length -1;
+		   
+		   
+		   while(mid <= high) {
+		   if(arr[mid] == 0) {
+			   int temp = arr[mid];
+			   arr[mid] = arr[low];
+			   arr[low] = temp;
+			   low++; mid++;
+		   } else if(arr[mid] == 1) {
+			   mid++;
+		   } else {
+			   int temp = arr[mid];
+			   arr[mid] = arr[high];
+			   arr[high] = temp;
+			   high--;
+		   }
+		   
+		   }
+		   
+	   }
+	   
+	   
+	   
 public static void main(String[] args) {
-	int[] arr = {0,1,2,1,0,2,0,1,2,0,1,2};
-	sortOnesTwosProb(arr);
+	int[] arr = {0,1,2,1,0,2,0,1,2,0,1,2,1,2,2,2, 0};
+	zeroOneSortOptimal(arr);
 	for(int i : arr) {
 		System.out.print(i+" ");
 	}
-	
 }
 }
