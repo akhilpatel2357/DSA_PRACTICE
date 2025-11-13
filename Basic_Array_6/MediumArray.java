@@ -249,13 +249,50 @@ public class MediumArray {
 		   
 	   }
 	   
+	   //TC: O(n*n), SC:O(1)
+	   public static int findMajorityNaiveApproach(int[] arr) {
+		   int n = arr.length;
+		   for(int i= 0; i < n; i++) {
+			   int count = 0;
+			   for(int j = 0; j< n; j++) {
+				    if(arr[j] == arr[i]) {
+				    	count++;
+				    }
+				   if(count > n/2) 
+					   return arr[i];
+				   
+			   }
+		   }
+		   return -1;
+	   }
+	   
+	   //TC: O(n), SC: O(n)
+	   public static int findMajorityElement(int[] arr) {
+		   Map<Integer,Integer> map = new HashMap<Integer, Integer>();
+		   int n = arr.length;
+		   
+		   for(int i : arr) {
+			   map.put(i, map.getOrDefault(i, 0) +1);
+		   }
+		   
+		   for(Map.Entry<Integer, Integer> e : map.entrySet()) {
+			   int key = e.getKey();
+			   int value = e.getValue();
+			   if(value > n/2) {
+				   return key;
+			   }
+			   
+		   }
+		   return -1;
+	   }
+	   
+	   
+	  
 	   
 	   
 public static void main(String[] args) {
-	int[] arr = {0,1,2,1,0,2,0,1,2,0,1,2,1,2,2,2, 0};
-	zeroOneSortOptimal(arr);
-	for(int i : arr) {
-		System.out.print(i+" ");
-	}
+	int[] arr = {4,4,2,4,3,4,4,3,2,4};
+	System.out.println(findMajorityNaiveApproach(arr));
+	
 }
 }
