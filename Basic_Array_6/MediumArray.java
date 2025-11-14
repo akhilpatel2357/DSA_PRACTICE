@@ -286,13 +286,65 @@ public class MediumArray {
 		   return -1;
 	   }
 	   
+	   //https://takeuforward.org/data-structure/find-the-majority-element-that-occurs-more-than-n-2-times/
+	   //moore voting algorithm
+	   public static int findMajorityElmentUsingMooreAlgo(int[] arr) {
+			int element = 0;	
+		   int count = 0;
+		   for(int i  = 0; i < arr.length; i++) {
+			   if(count == 0) {
+				   count = 1;
+				   element = arr[i];
+			   } else if(element  == arr[i]) {
+				   count++;
+			   } else {
+				   count--;
+			   }
+			   
+		   }
+		   return element;
+	   }
 	   
-	  
+	   
+	   public static int findMaxSubArrSumRRR(int[] arr) {
+		   int maxSum = 0;
+		   for(int i = 0; i < arr.length; i++) {
+			   for(int j = i; j< arr.length; j++) {
+				   int sum = 0;
+				   for(int k = i; k <= j; k++) {
+					   sum += arr[k];
+					  
+				   }
+				   if(sum > maxSum) {
+					   maxSum = sum;
+				   }
+				  
+			   }
+		   }
+		   return maxSum;
+	   }
+	   
+	   //TC: O(n*n), SC: O(1)
+	   public static int findMaxSubArrSum(int[] arr) {
+		   int maxSum = 0;
+		   for(int i = 0; i < arr.length; i++) {
+			   int sum = 0;
+			   for(int j = i; j< arr.length; j++) {
+				   sum += arr[j];
+				   if(sum > maxSum) {
+					   maxSum = sum;
+				   }
+			   }
+		   }
+		   return maxSum;
+	   }
+	   
+	   
 	   
 	   
 public static void main(String[] args) {
-	int[] arr = {4,4,2,4,3,4,4,3,2,4};
-	System.out.println(findMajorityNaiveApproach(arr));
+	int[] arr = {-2,1,-3,4,-1,2,1,-5,4};
+	System.out.println(findMaxSubArrSumRRR(arr));
 	
 }
 }
