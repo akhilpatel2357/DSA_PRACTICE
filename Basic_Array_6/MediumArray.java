@@ -340,11 +340,70 @@ public class MediumArray {
 	   }
 	   
 	   
+	   //TC:O(n), SC:O(1)
+	   public static int findMaxSubArrKadaneAlgo(int[] arr) {
+		   
+		   int sum = 0;
+		   int start = 0;
+		   int startIndex = 0;
+		   int endIndex = 0;
+		   int maxSum = Integer.MIN_VALUE;
+		   for(int i = 0; i < arr.length; i++) {
+			   
+			   if(sum == 0) 
+				   start = i;
+			   
+			   
+			   sum+=arr[i];
+			   
+			   if(maxSum < sum) {
+				   maxSum = sum;
+				   startIndex = start;
+				   endIndex = i;
+			   }
+			   
+			   if(sum < 0) {
+				   sum = 0;
+			   }
+			   
+		   }
+		   
+		   for(int i =startIndex; i<=endIndex;i++) {
+			   System.out.print(arr[i] + " ");
+		   }
+		   System.out.println();
+
+		   return maxSum;
+	   }
 	   
+	   
+	   
+	   //TC: O(n*n), SC:O(1)
+	   public static int maxProfit(int[] prices) {
+		     int maxProfit = 0;
+		     for(int i = 0; i < prices.length; i++) {
+		        for(int j = i+1; j< prices.length; j++) {
+		          maxProfit = Math.max(maxProfit, prices[j] - prices[i]);
+		        }
+		     }
+		return maxProfit;
+		    }
+	   
+	   //TC:O(n), SC:O(1)
+	   public static int maxProfitStocks(int[] arr) {
+		   int maxProfit = 0; int min = arr[0];
+		   for(int i = 1; i < arr.length; i++) {
+			   maxProfit = Math.max(maxProfit, arr[i] - min);
+			   
+			   min = Math.min(min, arr[i]);
+		   }
+		   return maxProfit;
+		   
+	   }
 	   
 public static void main(String[] args) {
-	int[] arr = {-2,1,-3,4,-1,2,1,-5,4};
-	System.out.println(findMaxSubArrSumRRR(arr));
+	int[] arr = {7,6,4,3,1};
+	System.out.println(maxProfit(arr));
 	
 }
 }
