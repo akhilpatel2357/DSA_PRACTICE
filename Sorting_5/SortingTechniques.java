@@ -97,9 +97,48 @@ public class SortingTechniques {
 		
 	}
 	
+	//TC: O(n*n) for best and avg case, O(n) for best case.
+	//SC: O(n) recursion stack 
+	public static void recursiveBubbleSort(int[] arr, int i) {
+		if(i < arr.length) {
+			int swap = 0;
+			for(int j = 0; j < arr.length -1 -i; j++) {
+				if(arr[j] > arr[j+1]) {
+					int temp = arr[j];
+					arr[j] = arr[j+1];
+					arr[j+1] = temp;
+					swap =1;
+				}
+			}
+			
+			if(swap == 0) {
+				return;
+			}
+			recursiveBubbleSort(arr, i+1);
+		}
+	}
+	
+	//TC:O(n*n) for avg, worst cases, O(n) for best case
+	//SC:O(n) auxiliary stack space
+	public static void recursiveInsertionSort(int[] arr, int i) {
+		   if(i >= arr.length) 
+			   return;
+		
+		    int j = i;
+			while(j > 0) {
+				if(arr[j] < arr[j-1]) {
+					int temp = arr[j];
+					arr[j] = arr[j-1];
+					arr[j-1] = temp;
+				}
+				j--;
+			}
+			recursiveInsertionSort(arr, i+1);
+	}
+	
 	public static void main(String[] args) {
 		int[] arr = new int[] {5,4,3,2,1,6,1,2,3,4,5,5,1,9,110,3,2,3,111,1,1,1};
-		mergeSort(arr, 0, arr.length-1);
+		recursiveInsertionSort(arr, 0);
 		for(int a : arr) {
 			System.out.print(a+" ");
 		}
