@@ -395,15 +395,107 @@ public class MediumArray {
 		   for(int i = 1; i < arr.length; i++) {
 			   maxProfit = Math.max(maxProfit, arr[i] - min);
 			   
+			   
 			   min = Math.min(min, arr[i]);
 		   }
 		   return maxProfit;
 		   
 	   }
 	   
+	   
+	   //Both Positives and negatives are equal in number, Brute force approach.
+	   //TC: O(n+n/2), SC:O(n/2+n/2)
+	   public static int[] rearrangePosNegBruteForce(int[] arr) {
+		   List<Integer> posList = new ArrayList();
+		   List<Integer> negList = new ArrayList();
+		   
+		   
+		   for(int i = 0; i < arr.length; i++) {
+			   if(arr[i] >= 0) {
+				   posList.add(arr[i]);
+			   } else {
+				   negList.add(arr[i]);
+			   }
+		   }		 
+		   
+		   
+		   
+		   for(int i = 0; i < arr.length/2; i++) {
+			   arr[2*i] = posList.get(i);
+			   arr[2*i+1] = posList.get(i);  
+		   }
+		   return arr;
+	   }
+	   
+	   //Both Positives and negatives are equal in number, Optimal approach.
+	   //TC: O(n), SC:O(n)
+	   public static int[] rearrangeElementsUsingTwoPointer(int[] arr) {
+		   int[] arr1 = new int[arr.length];
+		   int pos = 0;
+		   int neg = 1;
+		   for(int i = 0; i < arr.length; i++) {
+			   if(arr[i] >= 0) {
+				   arr1[pos] = arr[i];	
+				   pos+=2;
+			   }  else {
+				   arr1[neg] = arr[i];
+				   neg+=2;
+			   }
+		   }
+		   return arr1;
+	   }
+	   
+	   
+	   //Both Positives and negatives are not equal in number.
+	   //TC:O(2n), SC: O(n)
+	   public static int[] rearrangeElementsPN(int[] arr) {
+		   List<Integer> posList = new ArrayList();
+		   List<Integer> negList = new ArrayList();
+		   
+		   for(int i = 0; i < arr.length; i++) {
+			   if(arr[i] >= 0) {
+				   posList.add(arr[i]);
+			   } else {
+				   negList.add(arr[i]);
+			   }
+		   }
+		   
+
+		   int left = 0;
+		   int right = 0;
+		   int i = 0;
+		   
+		   while(left < posList.size() && right < negList.size()) {
+			   if(i % 2 == 0) {
+				   arr[i] = posList.get(left);
+				   left++; i++;
+			   } else {
+				   arr[i] = negList.get(right);
+				   right++; i++;
+			   }
+			   
+		   }
+		   
+		   while(left < posList.size()) {
+			   arr[i] = posList.get(left);
+			   left++; i++;
+		   }
+		   
+		   while(right < negList.size()) {
+			   arr[i] = negList.get(right);
+			   right++; i++;
+		   }
+		   return arr;
+		   
+	   }
 public static void main(String[] args) {
-	int[] arr = {7,6,4,3,1};
-	System.out.println(maxProfit(arr));
+	int[] arr = {1,2,-3,-1,-2,-3};
+	int[] arr1 = rearrangeElementsPN(arr);
+	for(int i : arr1) {
+		System.out.print(i+" ");
+	}
+
+	
 	
 }
 }
