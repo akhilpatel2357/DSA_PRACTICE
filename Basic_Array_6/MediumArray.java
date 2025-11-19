@@ -488,12 +488,43 @@ public class MediumArray {
 		   return arr;
 		   
 	   }
+	   
+	   
+//	       Time Complexity:
+//		   O(n × n!)
+//
+//		   Space Complexity:
+//		   O(n × n!) total
+//		   (plus O(n) auxiliary for recursion + freqArr + ds)
+	   public static List<List<Integer>> printPermutations(int[] arr, List<Integer> ds, boolean[] freqArr, List<List<Integer>> ans) {
+		   if(ds.size() == arr.length) {
+			   ans.add(new ArrayList<Integer>(ds));
+			   return ans;
+		   }
+		   
+		   for(int i = 0; i < arr.length; i++) {
+			   if(!freqArr[i]) {
+				   freqArr[i] = true;
+				   ds.add(arr[i]);
+				   printPermutations(arr, ds, freqArr,  ans);
+				   ds.remove(ds.size()-1);
+				   freqArr[i] = false;
+			   }
+		   }
+		   return ans;
+	   }
+	   
+	   
 public static void main(String[] args) {
-	int[] arr = {1,2,-3,-1,-2,-3};
-	int[] arr1 = rearrangeElementsPN(arr);
-	for(int i : arr1) {
-		System.out.print(i+" ");
-	}
+	int[] arr = {1,2,3,4};
+	List<List<Integer>> ans = new ArrayList<List<Integer>>();
+	 printPermutations(arr, new ArrayList<Integer>(), new boolean[4], ans);
+	 
+	 System.out.println(ans.size());
+	 for(List<Integer> list : ans) {
+		 System.out.print(list+", ");
+	 }
+	 System.out.println();
 
 	
 	
